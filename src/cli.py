@@ -561,6 +561,8 @@ def display_discussions(results: list):
                 content.append(f"[bold]Style Tags:[/bold] {', '.join(meta['style_descriptors'])}")
             if meta.get('subreddit'):
                 content.append(f"[dim]r/{meta['subreddit']} • {meta.get('upvotes', 0)} upvotes[/dim]")
+            if meta.get('source_url'):
+                content.append(f"[link={meta['source_url']}]{meta['source_url']}[/link]")
 
             content.append(f"\n[dim]Match Score: {similarity:.1%}[/dim]")
 
@@ -579,6 +581,8 @@ def display_discussions(results: list):
                 print(f"   {meta['content'][:150]}...")
             if meta.get('mentioned_brands'):
                 print(f"   Brands: {', '.join(meta['mentioned_brands'])}")
+            if meta.get('source_url'):
+                print(f"   Link: {meta['source_url']}")
             print(f"   Match Score: {result['similarity']:.1%}")
             print()
 
