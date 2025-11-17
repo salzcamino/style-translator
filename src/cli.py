@@ -180,13 +180,13 @@ def load_samples(ctx):
                 console.print(f"  Items: {stats['items_count']}")
                 console.print(f"  Brands: {stats['brands_count']}")
                 console.print(f"  Discussions: {stats['discussions_count']}")
-                console.print("\nTo reload, first run: style-translator clear")
+                console.print("\nTo reload, first run: python -m src.cli clear")
             else:
                 print(f"Data already loaded:")
                 print(f"  Items: {stats['items_count']}")
                 print(f"  Brands: {stats['brands_count']}")
                 print(f"  Discussions: {stats['discussions_count']}")
-                print("\nTo reload, first run: style-translator clear")
+                print("\nTo reload, first run: python -m src.cli clear")
             return
 
         # Generate and index data
@@ -211,14 +211,16 @@ def load_samples(ctx):
             console.print(f"  {len(brands)} brand profiles")
             console.print(f"  {len(discussions)} style discussions")
             console.print("\n[bold]Try searching:[/bold]")
-            console.print('  style-translator search "Japanese workwear earth tones"')
-            console.print('  style-translator search "slim tapered high rise jeans"')
-            console.print('  style-translator brands "minimalist Scandinavian"')
+            console.print('  python -m src.cli search "Japanese workwear earth tones"')
+            console.print('  python -m src.cli search "slim tapered high rise jeans"')
+            console.print('  python -m src.cli brands "minimalist Scandinavian"')
         else:
             print(f"\nSuccessfully loaded:")
             print(f"  {len(items)} clothing items")
             print(f"  {len(brands)} brand profiles")
             print(f"  {len(discussions)} style discussions")
+            print("\nTry searching:")
+            print('  python -m src.cli search "Japanese workwear earth tones"')
 
     except Exception as e:
         if console:
