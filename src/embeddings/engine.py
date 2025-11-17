@@ -27,13 +27,16 @@ logger = logging.getLogger(__name__)
 def _serialize_metadata(metadata: dict) -> dict:
     """
     Convert metadata dict to ChromaDB-compatible format.
-    ChromaDB only supports str, int, float, bool, or None values.
-    Lists are converted to JSON strings.
+    ChromaDB only supports str, int, float, or bool values.
+    Lists are converted to JSON strings, None values are skipped.
     """
     import json
     serialized = {}
     for key, value in metadata.items():
-        if isinstance(value, list):
+        if value is None:
+            # Skip None values - ChromaDB doesn't support them
+            continue
+        elif isinstance(value, list):
             # Convert lists to JSON strings
             serialized[key] = json.dumps(value)
         else:
