@@ -24,6 +24,41 @@ from ..models.clothing import ClothingItem, Brand, StyleDiscussion
 logger = logging.getLogger(__name__)
 
 
+def _serialize_metadata(metadata: dict) -> dict:
+    """
+    Convert metadata dict to ChromaDB-compatible format.
+    ChromaDB only supports str, int, float, bool, or None values.
+    Lists are converted to JSON strings.
+    """
+    import json
+    serialized = {}
+    for key, value in metadata.items():
+        if isinstance(value, list):
+            # Convert lists to JSON strings
+            serialized[key] = json.dumps(value)
+        else:
+            serialized[key] = value
+    return serialized
+
+
+def _deserialize_metadata(metadata: dict) -> dict:
+    """
+    Convert ChromaDB metadata back to original format.
+    JSON strings that represent lists are converted back.
+    """
+    import json
+    deserialized = {}
+    for key, value in metadata.items():
+        if isinstance(value, str) and value.startswith('['):
+            try:
+                deserialized[key] = json.loads(value)
+            except json.JSONDecodeError:
+                deserialized[key] = value
+        else:
+            deserialized[key] = value
+    return deserialized
+
+
 class StyleSearchEngine:
     """
     Semantic search engine for finding clothing items based on style descriptions.
@@ -106,7 +141,8 @@ class StyleSearchEngine:
         # Prepare data for ChromaDB
         ids = [item.id for item in items]
         documents = [item.to_searchable_text() for item in items]
-        metadatas = [item.to_dict() for item in items]
+        # Serialize metadata (convert lists to JSON strings for ChromaDB)
+        metadatas = [_serialize_metadata(item.to_dict()) for item in items]
 
         # Generate embeddings
         embeddings = self.model.encode(documents).tolist()
@@ -135,7 +171,7 @@ class StyleSearchEngine:
 
         ids = [brand.id for brand in brands]
         documents = [brand.to_searchable_text() for brand in brands]
-        metadatas = [brand.to_dict() for brand in brands]
+        metadatas = [_serialize_metadata(brand.to_dict()) for brand in brands]
 
         embeddings = self.model.encode(documents).tolist()
 
@@ -162,7 +198,7 @@ class StyleSearchEngine:
 
         ids = [disc.id for disc in discussions]
         documents = [disc.to_searchable_text() for disc in discussions]
-        metadatas = [disc.to_dict() for disc in discussions]
+        metadatas = [_serialize_metadata(disc.to_dict()) for disc in discussions]
 
         embeddings = self.model.encode(documents).tolist()
 
@@ -217,7 +253,7 @@ class StyleSearchEngine:
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
-                    'metadata': results['metadatas'][0][i],
+                    'metadata': _deserialize_metadata(results['metadatas'][0][i]),
                     'similarity': round(similarity, 3),
                     'matched_text': results['documents'][0][i],
                 })
@@ -257,7 +293,7 @@ class StyleSearchEngine:
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
-                    'metadata': results['metadatas'][0][i],
+                    'metadata': _deserialize_metadata(results['metadatas'][0][i]),
                     'similarity': round(similarity, 3),
                     'matched_text': results['documents'][0][i],
                 })
@@ -297,7 +333,7 @@ class StyleSearchEngine:
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
-                    'metadata': results['metadatas'][0][i],
+                    'metadata': _deserialize_metadata(results['metadatas'][0][i]),
                     'similarity': round(similarity, 3),
                     'matched_text': results['documents'][0][i],
                 })
