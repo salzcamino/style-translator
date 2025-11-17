@@ -1,0 +1,27 @@
+# Core dependencies for Menswear Style Translator
+# All free, local-only - no paid APIs required
+
+# Semantic embeddings (runs locally)
+sentence-transformers>=2.2.0
+torch>=2.0.0
+
+# Vector database (local storage)
+chromadb>=0.4.0
+
+# Web scraping
+beautifulsoup4>=4.12.0
+requests>=2.31.0
+lxml>=4.9.0
+
+# Reddit API (free tier)
+praw>=7.7.0
+
+# CLI interface
+click>=8.1.0
+rich>=13.0.0  # Pretty terminal output
+
+# Data processing
+pandas>=2.0.0
+
+# Rate limiting for scraping
+ratelimit>=2.2.1
