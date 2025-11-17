@@ -112,19 +112,29 @@ class StyleSearchEngine:
         self.client = chromadb.PersistentClient(path=persist_directory)
 
         # Create collections for different data types
+        # Using cosine distance for better semantic similarity scores
         self.items_collection = self.client.get_or_create_collection(
             name="clothing_items",
-            metadata={"description": "Clothing items with style attributes"}
+            metadata={
+                "description": "Clothing items with style attributes",
+                "hnsw:space": "cosine"
+            }
         )
 
         self.brands_collection = self.client.get_or_create_collection(
             name="brands",
-            metadata={"description": "Brand profiles and aesthetics"}
+            metadata={
+                "description": "Brand profiles and aesthetics",
+                "hnsw:space": "cosine"
+            }
         )
 
         self.discussions_collection = self.client.get_or_create_collection(
             name="discussions",
-            metadata={"description": "Style discussions and recommendations"}
+            metadata={
+                "description": "Style discussions and recommendations",
+                "hnsw:space": "cosine"
+            }
         )
 
         logger.info("Search engine initialized successfully")
@@ -249,10 +259,11 @@ class StyleSearchEngine:
         formatted_results = []
         if results['ids'][0]:
             for i in range(len(results['ids'][0])):
-                # Convert distance to similarity score (ChromaDB uses L2 distance)
-                # Lower distance = higher similarity
+                # Convert cosine distance to similarity score
+                # Cosine distance: 0 = identical, 1 = orthogonal, 2 = opposite
+                # Similarity: 1 - distance gives us intuitive 0-1 scale
                 distance = results['distances'][0][i]
-                similarity = 1 / (1 + distance)  # Convert to 0-1 scale
+                similarity = max(0, 1 - distance)  # Clamp to 0-1
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
@@ -292,7 +303,7 @@ class StyleSearchEngine:
         if results['ids'][0]:
             for i in range(len(results['ids'][0])):
                 distance = results['distances'][0][i]
-                similarity = 1 / (1 + distance)
+                similarity = max(0, 1 - distance)  # Cosine similarity
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
@@ -332,7 +343,7 @@ class StyleSearchEngine:
         if results['ids'][0]:
             for i in range(len(results['ids'][0])):
                 distance = results['distances'][0][i]
-                similarity = 1 / (1 + distance)
+                similarity = max(0, 1 - distance)  # Cosine similarity
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
