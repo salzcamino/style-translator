@@ -71,11 +71,12 @@ class StyleSearchEngine:
     will be understood as similar concepts.
     """
 
-    # Recommended model - good balance of quality and speed
-    # Other options:
-    # - 'all-mpnet-base-v2': Higher quality but slower
-    # - 'paraphrase-MiniLM-L6-v2': Faster but lower quality
+    # Model options (from fastest to highest quality):
+    # - 'paraphrase-MiniLM-L3-v2': Fastest, ~60MB, good enough for most cases
+    # - 'all-MiniLM-L6-v2': Balanced quality/speed, ~90MB (default)
+    # - 'all-mpnet-base-v2': Highest quality but slowest, ~420MB
     DEFAULT_MODEL = 'all-MiniLM-L6-v2'
+    FAST_MODEL = 'paraphrase-MiniLM-L3-v2'  # Much faster loading
 
     def __init__(
         self,

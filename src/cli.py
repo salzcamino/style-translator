@@ -30,8 +30,13 @@ from src.embeddings.engine import StyleSearchEngine
 console = Console() if RICH_AVAILABLE else None
 
 
-def get_engine(data_dir: str = "./data/vectors") -> StyleSearchEngine:
+def get_engine(data_dir: str = "./data/vectors", fast: bool = False) -> StyleSearchEngine:
     """Initialize the search engine."""
+    if fast:
+        return StyleSearchEngine(
+            model_name=StyleSearchEngine.FAST_MODEL,
+            persist_directory=data_dir
+        )
     return StyleSearchEngine(persist_directory=data_dir)
 
 
@@ -315,23 +320,29 @@ def load_json(ctx, json_file, data_type):
 
 
 @cli.command()
+@click.option('--fast', is_flag=True, help='Use faster (but less accurate) model for quicker startup')
 @click.pass_context
-def interactive(ctx):
+def interactive(ctx, fast):
     """
     Start interactive mode for fast repeated searches.
 
     The model stays loaded in memory, so subsequent queries are instant.
     Type 'quit' or 'exit' to leave interactive mode.
+
+    Use --fast flag for faster startup (5-10s instead of 20s), with slightly less accurate results.
     """
     data_dir = ctx.obj['data_dir']
 
+    model_name = "fast model (paraphrase-MiniLM-L3-v2)" if fast else "standard model (all-MiniLM-L6-v2)"
     if console:
-        console.print("[bold]Loading search engine...[/bold]")
+        console.print(f"[bold]Loading {model_name}...[/bold]")
+        console.print("[dim]This may take 10-30 seconds on first run...[/dim]")
     else:
-        print("Loading search engine...")
+        print(f"Loading {model_name}...")
+        print("This may take 10-30 seconds on first run...")
 
     try:
-        engine = get_engine(data_dir)
+        engine = get_engine(data_dir, fast=fast)
         stats = engine.get_stats()
 
         if stats['items_count'] == 0:
