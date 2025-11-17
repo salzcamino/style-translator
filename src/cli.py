@@ -314,6 +314,117 @@ def load_json(ctx, json_file, data_type):
         sys.exit(1)
 
 
+@cli.command()
+@click.pass_context
+def interactive(ctx):
+    """
+    Start interactive mode for fast repeated searches.
+
+    The model stays loaded in memory, so subsequent queries are instant.
+    Type 'quit' or 'exit' to leave interactive mode.
+    """
+    data_dir = ctx.obj['data_dir']
+
+    if console:
+        console.print("[bold]Loading search engine...[/bold]")
+    else:
+        print("Loading search engine...")
+
+    try:
+        engine = get_engine(data_dir)
+        stats = engine.get_stats()
+
+        if stats['items_count'] == 0:
+            if console:
+                console.print("[yellow]No data loaded. Run 'python -m src.cli load-samples' first.[/yellow]")
+            else:
+                print("No data loaded. Run 'python -m src.cli load-samples' first.")
+            return
+
+        if console:
+            console.print(f"[green]Ready![/green] {stats['items_count']} items, {stats['brands_count']} brands indexed.\n")
+            console.print("[bold]Interactive Mode[/bold] - Type your style queries (or 'quit' to exit)")
+            console.print("Examples:")
+            console.print("  Japanese workwear earth tones")
+            console.print("  slim tapered high rise jeans")
+            console.print("  minimalist Scandinavian\n")
+        else:
+            print(f"Ready! {stats['items_count']} items, {stats['brands_count']} brands indexed.\n")
+            print("Interactive Mode - Type your style queries (or 'quit' to exit)")
+
+        while True:
+            try:
+                if console:
+                    query = console.input("[bold blue]Query>[/bold blue] ").strip()
+                else:
+                    query = input("Query> ").strip()
+
+                if not query:
+                    continue
+
+                if query.lower() in ('quit', 'exit', 'q'):
+                    if console:
+                        console.print("[dim]Goodbye![/dim]")
+                    else:
+                        print("Goodbye!")
+                    break
+
+                # Check for special commands
+                if query.startswith('/'):
+                    cmd = query[1:].lower().split()[0]
+                    if cmd == 'items':
+                        # Search items only
+                        rest = query[len(cmd)+1:].strip()
+                        if rest:
+                            results = engine.search_items(rest, n_results=10)
+                            display_items(results)
+                    elif cmd == 'brands':
+                        # Search brands only
+                        rest = query[len(cmd)+1:].strip()
+                        if rest:
+                            results = engine.search_brands(rest, n_results=5)
+                            display_brands(results)
+                    elif cmd == 'help':
+                        if console:
+                            console.print("\n[bold]Commands:[/bold]")
+                            console.print("  /items <query>  - Search only items")
+                            console.print("  /brands <query> - Search only brands")
+                            console.print("  /help           - Show this help")
+                            console.print("  quit            - Exit interactive mode\n")
+                        else:
+                            print("\nCommands:")
+                            print("  /items <query>  - Search only items")
+                            print("  /brands <query> - Search only brands")
+                            print("  /help           - Show this help")
+                            print("  quit            - Exit interactive mode\n")
+                    else:
+                        print(f"Unknown command: {cmd}")
+                    continue
+
+                # Default: comprehensive search
+                results = engine.comprehensive_search(query, n_items=5, n_brands=3, n_discussions=2)
+
+                if results['items']:
+                    display_items(results['items'])
+                if results['brands']:
+                    display_brands(results['brands'])
+                if results['discussions']:
+                    display_discussions(results['discussions'])
+
+            except KeyboardInterrupt:
+                print("\n")
+                continue
+            except EOFError:
+                break
+
+    except Exception as e:
+        if console:
+            console.print(f"[red]Error:[/red] {e}")
+        else:
+            print(f"Error: {e}")
+        sys.exit(1)
+
+
 def display_items(results: list):
     """Display clothing item results."""
     if not results:
