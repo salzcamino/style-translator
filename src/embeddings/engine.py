@@ -115,26 +115,17 @@ class StyleSearchEngine:
         # Using cosine distance for better semantic similarity scores
         self.items_collection = self.client.get_or_create_collection(
             name="clothing_items",
-            metadata={
-                "description": "Clothing items with style attributes",
-                "hnsw:space": "cosine"
-            }
+            metadata={"hnsw:space": "cosine"}
         )
 
         self.brands_collection = self.client.get_or_create_collection(
             name="brands",
-            metadata={
-                "description": "Brand profiles and aesthetics",
-                "hnsw:space": "cosine"
-            }
+            metadata={"hnsw:space": "cosine"}
         )
 
         self.discussions_collection = self.client.get_or_create_collection(
             name="discussions",
-            metadata={
-                "description": "Style discussions and recommendations",
-                "hnsw:space": "cosine"
-            }
+            metadata={"hnsw:space": "cosine"}
         )
 
         logger.info("Search engine initialized successfully")
@@ -394,14 +385,17 @@ class StyleSearchEngine:
         self.client.delete_collection("brands")
         self.client.delete_collection("discussions")
 
-        # Recreate empty collections
+        # Recreate empty collections with cosine distance
         self.items_collection = self.client.get_or_create_collection(
-            name="clothing_items"
+            name="clothing_items",
+            metadata={"hnsw:space": "cosine"}
         )
         self.brands_collection = self.client.get_or_create_collection(
-            name="brands"
+            name="brands",
+            metadata={"hnsw:space": "cosine"}
         )
         self.discussions_collection = self.client.get_or_create_collection(
-            name="discussions"
+            name="discussions",
+            metadata={"hnsw:space": "cosine"}
         )
         logger.info("All data cleared")
