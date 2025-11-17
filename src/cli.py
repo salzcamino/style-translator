@@ -5,6 +5,7 @@ Find clothing items and brands based on natural language style descriptions.
 """
 import click
 import json
+import logging
 import os
 import sys
 from pathlib import Path
@@ -585,6 +586,200 @@ def display_discussions(results: list):
                 print(f"   Link: {meta['source_url']}")
             print(f"   Match Score: {result['similarity']:.1%}")
             print()
+
+
+@cli.command()
+@click.option('--output-dir', default='./data/production', help='Output directory for scraped data')
+@click.option('--end-items', default=200, help='Max items per End category')
+@click.option('--farfetch-items', default=150, help='Max items per Farfetch category')
+@click.option('--reddit-posts', default=50, help='Reddit posts per subreddit')
+@click.option('--styleforum-threads', default=30, help='StyleForum threads per forum')
+@click.option('--skip-reddit', is_flag=True, help='Skip Reddit scraping')
+@click.option('--skip-ebay', is_flag=True, help='Skip eBay gap filling')
+def scrape_production(output_dir, end_items, farfetch_items, reddit_posts, styleforum_threads, skip_reddit, skip_ebay):
+    """
+    Build production dataset by scraping End, Farfetch, Reddit, StyleForum, and eBay.
+
+    This will take considerable time (potentially hours) and requires network access.
+
+    Example:
+        python -m src.cli scrape-production --end-items 100 --farfetch-items 100
+    """
+    if console:
+        console.print("[bold]Starting Production Data Pipeline[/bold]")
+        console.print(f"Output directory: {output_dir}")
+        console.print("\n[yellow]WARNING: This will scrape data from multiple websites.[/yellow]")
+        console.print("[yellow]Please ensure you respect robots.txt and terms of service.[/yellow]")
+        console.print("[yellow]This process may take several hours.[/yellow]\n")
+    else:
+        print("Starting Production Data Pipeline")
+        print(f"Output directory: {output_dir}")
+        print("\nWARNING: This will scrape data from multiple websites.")
+        print("This process may take several hours.\n")
+
+    # Setup logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
+
+    try:
+        from src.scrapers.orchestrator import DataPipelineOrchestrator
+
+        orchestrator = DataPipelineOrchestrator(output_dir=output_dir)
+
+        if console:
+            console.print(f"Current data: {len(orchestrator.items)} items, {len(orchestrator.brands)} brands")
+        else:
+            print(f"Current data: {orchestrator.get_summary()}")
+
+        # Run pipeline components
+        if console:
+            console.print("\n[bold cyan]Phase 1: Scraping End Clothing...[/bold cyan]")
+        orchestrator.scrape_end_clothing(max_per_category=end_items)
+
+        if console:
+            console.print("\n[bold cyan]Phase 2: Scraping Farfetch...[/bold cyan]")
+        orchestrator.scrape_farfetch(max_per_category=farfetch_items)
+
+        if console:
+            console.print("\n[bold cyan]Phase 3: Scraping StyleForum...[/bold cyan]")
+        orchestrator.scrape_styleforum(threads_per_forum=styleforum_threads)
+
+        if not skip_reddit:
+            if console:
+                console.print("\n[bold cyan]Phase 4: Scraping Reddit...[/bold cyan]")
+            orchestrator.scrape_reddit(posts_per_sub=reddit_posts)
+
+        if not skip_ebay:
+            if console:
+                console.print("\n[bold cyan]Phase 5: Filling gaps with eBay...[/bold cyan]")
+            orchestrator.fill_brand_gaps_ebay()
+
+        if console:
+            console.print("\n[bold cyan]Phase 6: Building brand profiles...[/bold cyan]")
+        orchestrator.build_brand_profiles()
+
+        if console:
+            console.print("\n[bold cyan]Phase 7: Saving final data...[/bold cyan]")
+        orchestrator.save_production_data()
+
+        # Show summary
+        summary = orchestrator.get_summary()
+        if console:
+            console.print("\n[bold green]Pipeline Complete![/bold green]")
+            console.print(f"Total items: {summary['total_items']}")
+            console.print(f"Total brands: {summary['total_brands']}")
+            console.print(f"Total discussions: {summary['total_discussions']}")
+            console.print(f"\nData saved to: {output_dir}")
+            console.print("\nTo load this data into the search engine:")
+            console.print(f"  python -m src.cli load-json {output_dir}/items.json --type items")
+            console.print(f"  python -m src.cli load-json {output_dir}/brands.json --type brands")
+            console.print(f"  python -m src.cli load-json {output_dir}/discussions.json --type discussions")
+        else:
+            print("\nPipeline Complete!")
+            print(f"Total items: {summary['total_items']}")
+            print(f"Total brands: {summary['total_brands']}")
+            print(f"Total discussions: {summary['total_discussions']}")
+            print(f"\nData saved to: {output_dir}")
+
+    except ImportError as e:
+        if console:
+            console.print(f"[red]Import error:[/red] {e}")
+            console.print("Make sure all dependencies are installed: pip install -r requirements.txt")
+        else:
+            print(f"Import error: {e}")
+        sys.exit(1)
+    except Exception as e:
+        if console:
+            console.print(f"[red]Error:[/red] {e}")
+        else:
+            print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
+
+
+@cli.command()
+@click.argument('source_dir', default='./data/production')
+@click.pass_context
+def load_production(ctx, source_dir):
+    """
+    Load production dataset into the search engine.
+
+    Loads items, brands, and discussions from JSON files in the source directory.
+    """
+    data_dir = ctx.obj['data_dir']
+
+    if console:
+        console.print(f"[bold]Loading production data from {source_dir}[/bold]")
+    else:
+        print(f"Loading production data from {source_dir}")
+
+    try:
+        engine = get_engine(data_dir)
+
+        # Check if already loaded
+        stats = engine.get_stats()
+        if stats['items_count'] > 0:
+            if console:
+                console.print(f"[yellow]Warning: Database already has {stats['items_count']} items[/yellow]")
+                console.print("Run 'python -m src.cli clear' first to start fresh")
+            else:
+                print(f"Warning: Database already has {stats['items_count']} items")
+                print("Run 'python -m src.cli clear' first to start fresh")
+            return
+
+        # Load items
+        items_file = Path(source_dir) / "items.json"
+        if items_file.exists():
+            with open(items_file, 'r') as f:
+                items_data = json.load(f)
+            items = [ClothingItem.from_dict(d) for d in items_data]
+            engine.add_items(items)
+            if console:
+                console.print(f"[green]Loaded {len(items)} items[/green]")
+            else:
+                print(f"Loaded {len(items)} items")
+
+        # Load brands
+        brands_file = Path(source_dir) / "brands.json"
+        if brands_file.exists():
+            with open(brands_file, 'r') as f:
+                brands_data = json.load(f)
+            brands = [Brand.from_dict(d) for d in brands_data]
+            engine.add_brands(brands)
+            if console:
+                console.print(f"[green]Loaded {len(brands)} brands[/green]")
+            else:
+                print(f"Loaded {len(brands)} brands")
+
+        # Load discussions
+        discussions_file = Path(source_dir) / "discussions.json"
+        if discussions_file.exists():
+            with open(discussions_file, 'r') as f:
+                discussions_data = json.load(f)
+            discussions = [StyleDiscussion.from_dict(d) for d in discussions_data]
+            engine.add_discussions(discussions)
+            if console:
+                console.print(f"[green]Loaded {len(discussions)} discussions[/green]")
+            else:
+                print(f"Loaded {len(discussions)} discussions")
+
+        if console:
+            console.print("\n[bold green]Production data loaded![/bold green]")
+            console.print("Try: python -m src.cli interactive")
+        else:
+            print("\nProduction data loaded!")
+
+    except Exception as e:
+        if console:
+            console.print(f"[red]Error loading data:[/red] {e}")
+        else:
+            print(f"Error loading data: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
 
 
 if __name__ == '__main__':

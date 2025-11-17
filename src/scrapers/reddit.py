@@ -31,12 +31,17 @@ class RedditScraper:
     FASHION_SUBREDDITS = [
         'malefashionadvice',
         'malefashion',
+        'throwingfits',  # Added - great for outfit inspiration
         'rawdenim',
         'goodyearwelt',
         'streetwear',
         'techwearclothing',
         'NavyBlazer',
         'frugalmalefashion',
+        'japanesestreetwear',
+        'QualityTacticalGear',
+        'onebag',
+        'BuyItForLife',
     ]
 
     # Keywords that indicate useful style discussions
