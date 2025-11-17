@@ -3,21 +3,14 @@ Semantic embedding and search engine using sentence-transformers and ChromaDB.
 This is the core of the Style Translator - it understands the meaning behind style descriptions.
 """
 import os
-from typing import Any, Optional
+from typing import Any, Optional, TYPE_CHECKING
 import logging
 
-try:
+# Lazy imports - these heavy libraries are only imported when actually used
+# This speeds up CLI startup significantly
+if TYPE_CHECKING:
     from sentence_transformers import SentenceTransformer
-    SENTENCE_TRANSFORMERS_AVAILABLE = True
-except ImportError:
-    SENTENCE_TRANSFORMERS_AVAILABLE = False
-
-try:
     import chromadb
-    from chromadb.config import Settings
-    CHROMADB_AVAILABLE = True
-except ImportError:
-    CHROMADB_AVAILABLE = False
 
 from ..models.clothing import ClothingItem, Brand, StyleDiscussion
 
@@ -90,13 +83,18 @@ class StyleSearchEngine:
             model_name: Name of the sentence-transformers model to use
             persist_directory: Directory to store the vector database
         """
-        if not SENTENCE_TRANSFORMERS_AVAILABLE:
+        # Lazy import heavy dependencies - only load when engine is instantiated
+        try:
+            from sentence_transformers import SentenceTransformer
+        except ImportError:
             raise ImportError(
                 "sentence-transformers not installed. "
                 "Run: pip install sentence-transformers"
             )
 
-        if not CHROMADB_AVAILABLE:
+        try:
+            import chromadb
+        except ImportError:
             raise ImportError(
                 "chromadb not installed. "
                 "Run: pip install chromadb"
