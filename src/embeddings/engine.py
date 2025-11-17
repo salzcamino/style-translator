@@ -251,10 +251,15 @@ class StyleSearchEngine:
         if results['ids'][0]:
             for i in range(len(results['ids'][0])):
                 # Convert cosine distance to similarity score
-                # Cosine distance: 0 = identical, 1 = orthogonal, 2 = opposite
-                # Similarity: 1 - distance gives us intuitive 0-1 scale
+                # Cosine distance in ChromaDB: distance = 1 - cosine_similarity
+                # So: cosine_similarity = 1 - distance
                 distance = results['distances'][0][i]
-                similarity = max(0, 1 - distance)  # Clamp to 0-1
+                raw_similarity = max(0, 1 - distance)
+
+                # Apply power transformation for more intuitive scores
+                # Raw cosine similarity rarely exceeds 0.7 even for very similar text
+                # Power of 0.5 (square root) stretches scores: 0.56 -> 0.75, 0.35 -> 0.59
+                similarity = raw_similarity ** 0.5
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
@@ -294,7 +299,8 @@ class StyleSearchEngine:
         if results['ids'][0]:
             for i in range(len(results['ids'][0])):
                 distance = results['distances'][0][i]
-                similarity = max(0, 1 - distance)  # Cosine similarity
+                raw_similarity = max(0, 1 - distance)
+                similarity = raw_similarity ** 0.5  # Power transformation
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
@@ -334,7 +340,8 @@ class StyleSearchEngine:
         if results['ids'][0]:
             for i in range(len(results['ids'][0])):
                 distance = results['distances'][0][i]
-                similarity = max(0, 1 - distance)  # Cosine similarity
+                raw_similarity = max(0, 1 - distance)
+                similarity = raw_similarity ** 0.5  # Power transformation
 
                 formatted_results.append({
                     'id': results['ids'][0][i],
