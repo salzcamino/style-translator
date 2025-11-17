@@ -701,6 +701,73 @@ def scrape_production(output_dir, end_items, farfetch_items, reddit_posts, style
 
 
 @cli.command()
+@click.pass_context
+def load_database(ctx):
+    """
+    Load production data from the comprehensive brand database.
+
+    This loads curated data for hundreds of brands including:
+    - Japanese workwear (Orslow, Engineered Garments, Kapital)
+    - Scandinavian minimalist (Norse Projects, Our Legacy)
+    - Raw denim (Iron Heart, 3sixteen)
+    - Techwear (Arc'teryx Veilance, Acronym)
+    - Heritage Americana (Red Wing, Filson)
+    - And many more...
+    """
+    data_dir = ctx.obj['data_dir']
+
+    if console:
+        console.print("[bold]Loading comprehensive brand database...[/bold]")
+    else:
+        print("Loading comprehensive brand database...")
+
+    try:
+        engine = get_engine(data_dir)
+
+        # Check if already loaded
+        stats = engine.get_stats()
+        if stats['items_count'] > 0:
+            if console:
+                console.print(f"[yellow]Database already has {stats['items_count']} items[/yellow]")
+                console.print("Run 'python -m src.cli clear' first to start fresh")
+            else:
+                print(f"Database already has {stats['items_count']} items")
+            return
+
+        # Load from brand database
+        from src.data.brand_database import generate_items_from_database, generate_brands_from_database
+
+        items = generate_items_from_database()
+        brands = generate_brands_from_database()
+
+        if console:
+            console.print(f"Generated {len(items)} items from {len(brands)} brands")
+        else:
+            print(f"Generated {len(items)} items from {len(brands)} brands")
+
+        engine.add_items(items)
+        engine.add_brands(brands)
+
+        if console:
+            console.print(f"\n[green]Successfully loaded:[/green]")
+            console.print(f"  {len(items)} clothing items")
+            console.print(f"  {len(brands)} brand profiles")
+            console.print("\n[bold]Try searching:[/bold]")
+            console.print('  python -m src.cli interactive')
+        else:
+            print(f"\nSuccessfully loaded {len(items)} items and {len(brands)} brands")
+
+    except Exception as e:
+        if console:
+            console.print(f"[red]Error:[/red] {e}")
+        else:
+            print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
+        sys.exit(1)
+
+
+@cli.command()
 @click.argument('source_dir', default='./data/production')
 @click.pass_context
 def load_production(ctx, source_dir):

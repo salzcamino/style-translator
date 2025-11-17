@@ -33,23 +33,33 @@ class EndClothingScraper(BaseScraper):
     BASE_URL = "https://www.endclothing.com"
 
     # Categories to scrape with their URL paths
+    # Updated URLs based on current End site structure
     CATEGORIES = {
-        'jackets': '/us/clothing/coats-jackets',
-        'shirts': '/us/clothing/shirts',
-        't-shirts': '/us/clothing/t-shirts',
-        'sweaters': '/us/clothing/knitwear',
-        'pants': '/us/clothing/trousers',
-        'jeans': '/us/clothing/jeans',
-        'shorts': '/us/clothing/shorts',
-        'hoodies': '/us/clothing/sweatshirts',
-        'footwear': '/us/footwear',
+        'jackets': '/us/men/clothing/coats-and-jackets',
+        'shirts': '/us/men/clothing/shirts',
+        't-shirts': '/us/men/clothing/t-shirts',
+        'sweaters': '/us/men/clothing/knitwear',
+        'pants': '/us/men/clothing/trousers',
+        'jeans': '/us/men/clothing/jeans',
+        'shorts': '/us/men/clothing/shorts',
+        'hoodies': '/us/men/clothing/sweatshirts',
+        'footwear': '/us/men/footwear',
     }
 
     def __init__(self, **kwargs):
-        super().__init__(delay_seconds=2.0, **kwargs)
+        super().__init__(delay_seconds=3.0, **kwargs)  # Slower to avoid detection
+        # More browser-like headers
         self.session.headers.update({
-            'Accept': 'text/html,application/xhtml+xml',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
             'Accept-Language': 'en-US,en;q=0.9',
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Connection': 'keep-alive',
+            'Upgrade-Insecure-Requests': '1',
+            'Sec-Fetch-Dest': 'document',
+            'Sec-Fetch-Mode': 'navigate',
+            'Sec-Fetch-Site': 'none',
+            'Sec-Fetch-User': '?1',
+            'Cache-Control': 'max-age=0',
         })
         self.scraped_products = []
         self.discovered_brands = set()
