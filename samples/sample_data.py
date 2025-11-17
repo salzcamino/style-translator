@@ -899,6 +899,474 @@ def generate_sample_items() -> list[ClothingItem]:
             colors=["cream", "black", "grey"], materials=["wool"], price_usd=450.00),
     ])
 
+    # === FILSON ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Mackinaw Cruiser Jacket", brand="Filson", category="jacket",
+            description="Heavyweight wool cruiser jacket. Iconic outdoor heritage piece with four front pockets.",
+            fit="regular", style_tags=["heritage", "outdoor", "americana"],
+            colors=["forest green", "red"], materials=["mackinaw wool"], price_usd=495.00),
+        ClothingItem(id=next_id(), name="Tin Cloth Cruiser Jacket", brand="Filson", category="jacket",
+            description="Water-resistant waxed cotton jacket. Rugged outdoor construction.",
+            fit="regular", style_tags=["heritage", "outdoor", "rugged"],
+            colors=["dark tan", "otter green"], materials=["tin cloth"], price_usd=395.00),
+        ClothingItem(id=next_id(), name="Double Mackinaw Cruiser", brand="Filson", category="jacket",
+            description="Extra heavy double-layer wool cruiser. Ultimate warmth for harsh conditions.",
+            fit="relaxed", style_tags=["heritage", "outdoor", "heavyweight"],
+            colors=["dark navy", "charcoal"], materials=["double mackinaw wool"], price_usd=595.00),
+        ClothingItem(id=next_id(), name="Ranger Backpack", brand="Filson", category="accessories",
+            description="Rugged twill backpack with bridle leather straps. Built for decades of use.",
+            fit="one size", style_tags=["heritage", "outdoor", "durable"],
+            colors=["otter green", "tan"], materials=["rugged twill", "bridle leather"], price_usd=425.00),
+    ])
+
+    # === UNIVERSAL WORKS ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Bakers Jacket", brand="Universal Works", category="jacket",
+            description="Three-button workwear jacket in cotton twill. British take on chore coat.",
+            fit="regular", style_tags=["workwear", "british", "casual"],
+            colors=["navy", "olive", "sand"], materials=["cotton twill"], price_usd=295.00),
+        ClothingItem(id=next_id(), name="Pleated Track Pant", brand="Universal Works", category="pants",
+            description="Wide leg track pants with front pleats. Comfortable casual trousers.",
+            fit="wide pleated", style_tags=["casual", "relaxed", "comfortable"],
+            colors=["navy", "black", "olive"], materials=["cotton twill"], price_usd=185.00),
+        ClothingItem(id=next_id(), name="Kyoto Work Shirt", brand="Universal Works", category="shirt",
+            description="Camp collar shirt with square hem. Japanese-inspired casual shirt.",
+            fit="relaxed", style_tags=["casual", "japanese", "summer"],
+            colors=["navy", "ecru", "indigo"], materials=["cotton"], price_usd=165.00),
+        ClothingItem(id=next_id(), name="Lancaster Jacket", brand="Universal Works", category="jacket",
+            description="Zip-front blouson jacket in cotton blend. Clean casual outerwear.",
+            fit="regular", style_tags=["casual", "clean", "versatile"],
+            colors=["navy", "olive", "black"], materials=["cotton blend"], price_usd=325.00),
+    ])
+
+    # === KNICKERBOCKER ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Heavyweight Pocket Tee", brand="Knickerbocker", category="t-shirt",
+            description="USA-made heavyweight cotton tee with chest pocket. Substantial feel.",
+            fit="regular", style_tags=["americana", "heavyweight", "made in usa"],
+            colors=["white", "navy", "grey"], materials=["heavyweight cotton"], price_usd=68.00),
+        ClothingItem(id=next_id(), name="Gym Hoodie", brand="Knickerbocker", category="hoodie",
+            description="Heavyweight raglan hoodie with vintage athletic aesthetic.",
+            fit="relaxed", style_tags=["americana", "vintage", "athletic"],
+            colors=["grey", "navy", "green"], materials=["heavyweight fleece"], price_usd=198.00),
+        ClothingItem(id=next_id(), name="Camp Collar Shirt", brand="Knickerbocker", category="shirt",
+            description="Relaxed camp collar shirt in lightweight cotton. Summer casual essential.",
+            fit="relaxed", style_tags=["americana", "casual", "summer"],
+            colors=["cream", "navy", "olive"], materials=["cotton"], price_usd=148.00),
+    ])
+
+    # === TAYLOR STITCH ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Democratic Jean", brand="Taylor Stitch", category="pants",
+            description="Organic selvedge denim with straight fit. Responsibly made in USA.",
+            fit="straight", style_tags=["americana", "sustainable", "raw denim"],
+            colors=["indigo"], materials=["organic selvedge denim"], price_usd=198.00),
+        ClothingItem(id=next_id(), name="Long Haul Jacket", brand="Taylor Stitch", category="jacket",
+            description="Denim trucker jacket in organic cotton. Classic American style.",
+            fit="regular", style_tags=["americana", "sustainable", "classic"],
+            colors=["indigo", "black"], materials=["organic denim"], price_usd=248.00),
+        ClothingItem(id=next_id(), name="Heavy Bag Tee", brand="Taylor Stitch", category="t-shirt",
+            description="Heavyweight slub cotton tee made from recycled materials.",
+            fit="regular", style_tags=["americana", "sustainable", "heavyweight"],
+            colors=["white", "grey", "navy"], materials=["recycled cotton"], price_usd=58.00),
+        ClothingItem(id=next_id(), name="Apres Pant", brand="Taylor Stitch", category="pants",
+            description="Relaxed cotton twill pants with drawstring waist. Comfort meets style.",
+            fit="relaxed", style_tags=["casual", "comfortable", "sustainable"],
+            colors=["stone", "navy", "olive"], materials=["organic cotton twill"], price_usd=138.00),
+    ])
+
+    # === LADY WHITE CO ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Lite Jersey T-Shirt", brand="Lady White Co", category="t-shirt",
+            description="Mid-weight cotton tee made in Los Angeles. Perfect weight for all seasons.",
+            fit="regular", style_tags=["basics", "made in usa", "quality"],
+            colors=["white", "black", "grey", "navy"], materials=["cotton jersey"], price_usd=58.00),
+        ClothingItem(id=next_id(), name="Super Weighted Sweatshirt", brand="Lady White Co", category="sweater",
+            description="Heavy 16oz fleece crewneck sweatshirt. Substantial American-made fleece.",
+            fit="relaxed", style_tags=["heavyweight", "made in usa", "basics"],
+            colors=["heather grey", "black", "navy"], materials=["heavyweight fleece"], price_usd=195.00),
+        ClothingItem(id=next_id(), name="Sport Trouser", brand="Lady White Co", category="pants",
+            description="Relaxed elastic waist pants in cotton twill. Casual comfort.",
+            fit="relaxed", style_tags=["casual", "comfortable", "made in usa"],
+            colors=["black", "navy", "olive"], materials=["cotton twill"], price_usd=165.00),
+    ])
+
+    # === PATAGONIA ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Better Sweater Jacket", brand="Patagonia", category="jacket",
+            description="Fleece jacket made from recycled polyester. Sustainable warmth.",
+            fit="regular", style_tags=["outdoor", "sustainable", "technical"],
+            colors=["black", "navy", "nickel"], materials=["recycled polyester fleece"], price_usd=139.00),
+        ClothingItem(id=next_id(), name="Nano Puff Jacket", brand="Patagonia", category="jacket",
+            description="Lightweight insulated jacket with recycled materials. Packable warmth.",
+            fit="regular", style_tags=["outdoor", "sustainable", "packable"],
+            colors=["black", "forge grey", "classic navy"], materials=["recycled nylon", "primaloft"], price_usd=239.00),
+        ClothingItem(id=next_id(), name="Baggies Shorts", brand="Patagonia", category="shorts",
+            description="Quick-dry shorts with mesh lining. Classic outdoor shorts.",
+            fit="relaxed", style_tags=["outdoor", "casual", "summer"],
+            colors=["black", "stone blue", "tidepool blue"], materials=["recycled nylon"], price_usd=69.00),
+        ClothingItem(id=next_id(), name="Torrentshell 3L Jacket", brand="Patagonia", category="jacket",
+            description="Waterproof rain jacket made from recycled materials. H2No performance standard.",
+            fit="regular", style_tags=["outdoor", "technical", "waterproof"],
+            colors=["black", "classic navy"], materials=["recycled nylon"], price_usd=179.00),
+    ])
+
+    # === MOMOTARO ===
+    items.extend([
+        ClothingItem(id=next_id(), name="0605-SP Going to Battle", brand="Momotaro", category="pants",
+            description="15.7oz Zimbabwe cotton selvedge denim. Natural tapered fit with distinctive pink selvedge.",
+            fit="natural tapered", style_tags=["japanese", "raw denim", "premium"],
+            colors=["indigo"], materials=["selvedge denim"], price_usd=365.00),
+        ClothingItem(id=next_id(), name="0306-SP Tight Tapered", brand="Momotaro", category="pants",
+            description="Tight tapered fit in heavyweight selvedge. Japanese precision.",
+            fit="tight tapered", style_tags=["japanese", "raw denim", "modern"],
+            colors=["indigo"], materials=["selvedge denim"], price_usd=345.00),
+        ClothingItem(id=next_id(), name="Battle Stripe Tee", brand="Momotaro", category="t-shirt",
+            description="Cotton tee with signature battle stripe detail. Japanese craftsmanship.",
+            fit="regular", style_tags=["japanese", "casual", "quality"],
+            colors=["white", "navy"], materials=["cotton"], price_usd=85.00),
+    ])
+
+    # === STUDIO NICHOLSON ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Sorte Volume Pant", brand="Studio Nicholson", category="pants",
+            description="High-waisted wide leg trousers. Architectural Japanese-influenced design.",
+            fit="wide leg high rise", style_tags=["minimalist", "architectural", "contemporary"],
+            colors=["black", "dark navy", "olive"], materials=["wool blend"], price_usd=445.00),
+        ClothingItem(id=next_id(), name="Kosa Volume Shirt", brand="Studio Nicholson", category="shirt",
+            description="Oversized cotton shirt with dropped shoulders. Clean contemporary design.",
+            fit="oversized", style_tags=["minimalist", "contemporary", "relaxed"],
+            colors=["white", "light blue", "black"], materials=["cotton poplin"], price_usd=325.00),
+        ClothingItem(id=next_id(), name="Luka Blouson", brand="Studio Nicholson", category="jacket",
+            description="Minimal zip-front jacket. Clean lines with contemporary proportions.",
+            fit="relaxed", style_tags=["minimalist", "contemporary", "clean"],
+            colors=["black", "khaki", "navy"], materials=["technical cotton"], price_usd=495.00),
+    ])
+
+    # === FRED PERRY ===
+    items.extend([
+        ClothingItem(id=next_id(), name="M12 Twin Tipped Polo", brand="Fred Perry", category="shirt",
+            description="Original twin-tipped polo shirt. British mod heritage.",
+            fit="slim", style_tags=["british", "mod", "classic"],
+            colors=["black", "navy", "burgundy"], materials=["cotton pique"], price_usd=120.00),
+        ClothingItem(id=next_id(), name="Brentham Jacket", brand="Fred Perry", category="jacket",
+            description="Lightweight harrington-style jacket. British casual classic.",
+            fit="regular", style_tags=["british", "mod", "casual"],
+            colors=["navy", "black"], materials=["cotton blend"], price_usd=275.00),
+        ClothingItem(id=next_id(), name="Track Jacket", brand="Fred Perry", category="jacket",
+            description="Vintage-inspired track jacket with twin taping. British sportswear heritage.",
+            fit="regular", style_tags=["british", "sporty", "vintage"],
+            colors=["navy", "burgundy", "black"], materials=["polyester tricot"], price_usd=195.00),
+    ])
+
+    # === HERNO ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Laminar Jacket", brand="Herno", category="jacket",
+            description="Technical lightweight jacket with Gore-Tex. Italian luxury meets technical performance.",
+            fit="regular", style_tags=["italian", "technical", "luxury"],
+            colors=["navy", "black"], materials=["gore-tex"], price_usd=795.00),
+        ClothingItem(id=next_id(), name="Ultralight Blazer", brand="Herno", category="jacket",
+            description="Unstructured blazer in technical fabric. Weightless Italian tailoring.",
+            fit="regular", style_tags=["italian", "technical", "tailoring"],
+            colors=["navy", "grey", "black"], materials=["technical wool"], price_usd=895.00),
+        ClothingItem(id=next_id(), name="Padded Vest", brand="Herno", category="jacket",
+            description="Lightweight down vest for layering. Versatile Italian outerwear.",
+            fit="regular", style_tags=["italian", "layering", "lightweight"],
+            colors=["navy", "black", "olive"], materials=["nylon", "down"], price_usd=495.00),
+    ])
+
+    # === BLUE BLUE JAPAN ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Indigo Sashiko Work Shirt", brand="Blue Blue Japan", category="shirt",
+            description="Hand-dyed indigo shirt with sashiko stitching. Traditional Japanese craftsmanship.",
+            fit="relaxed", style_tags=["japanese", "indigo", "artisanal"],
+            colors=["indigo"], materials=["cotton sashiko"], price_usd=395.00),
+        ClothingItem(id=next_id(), name="Boro Patchwork Jacket", brand="Blue Blue Japan", category="jacket",
+            description="Indigo jacket with boro (repair) patchwork. Traditional repair techniques.",
+            fit="relaxed", style_tags=["japanese", "indigo", "artisanal"],
+            colors=["indigo", "blue"], materials=["indigo cotton"], price_usd=595.00),
+        ClothingItem(id=next_id(), name="Natural Dyed Tee", brand="Blue Blue Japan", category="t-shirt",
+            description="T-shirt dyed with natural indigo. Each piece slightly unique.",
+            fit="regular", style_tags=["japanese", "indigo", "natural"],
+            colors=["indigo"], materials=["cotton"], price_usd=125.00),
+    ])
+
+    # === AMI PARIS ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Ami de Coeur Tee", brand="AMI Paris", category="t-shirt",
+            description="Cotton tee with embroidered heart logo. French casual sophistication.",
+            fit="regular", style_tags=["french", "contemporary", "casual"],
+            colors=["white", "black", "navy"], materials=["cotton"], price_usd=135.00),
+        ClothingItem(id=next_id(), name="Carrot Fit Jeans", brand="AMI Paris", category="pants",
+            description="Tapered jeans with higher rise. Contemporary French denim.",
+            fit="tapered", style_tags=["french", "contemporary", "casual"],
+            colors=["indigo", "black"], materials=["denim"], price_usd=295.00),
+        ClothingItem(id=next_id(), name="Oversized Cardigan", brand="AMI Paris", category="sweater",
+            description="Chunky knit cardigan with heart logo. Cozy French knitwear.",
+            fit="oversized", style_tags=["french", "contemporary", "cozy"],
+            colors=["cream", "navy", "grey"], materials=["wool blend"], price_usd=495.00),
+    ])
+
+    # === SANDRO ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Linen Blend Blazer", brand="Sandro", category="jacket",
+            description="Unstructured linen blazer. Effortless Parisian summer tailoring.",
+            fit="regular", style_tags=["french", "summer", "tailoring"],
+            colors=["beige", "navy", "grey"], materials=["linen blend"], price_usd=545.00),
+        ClothingItem(id=next_id(), name="Slim Fit Chinos", brand="Sandro", category="pants",
+            description="Tailored cotton chinos with slim fit. Parisian smart casual.",
+            fit="slim", style_tags=["french", "smart casual", "tailored"],
+            colors=["navy", "beige", "black"], materials=["cotton stretch"], price_usd=225.00),
+        ClothingItem(id=next_id(), name="Cotton Polo Shirt", brand="Sandro", category="shirt",
+            description="Premium cotton polo with subtle branding. French casual elegance.",
+            fit="slim", style_tags=["french", "casual", "smart"],
+            colors=["white", "navy", "black"], materials=["cotton pique"], price_usd=175.00),
+    ])
+
+    # === SUNSPEL ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Riviera Polo", brand="Sunspel", category="shirt",
+            description="Mesh cotton polo as worn by James Bond. British heritage quality.",
+            fit="regular", style_tags=["british", "heritage", "classic"],
+            colors=["white", "navy", "grey"], materials=["mesh cotton"], price_usd=155.00),
+        ClothingItem(id=next_id(), name="Long Sleeve Crew Neck Tee", brand="Sunspel", category="t-shirt",
+            description="Superfine cotton long sleeve tee. Exceptionally soft British basics.",
+            fit="regular", style_tags=["british", "quality", "basics"],
+            colors=["white", "black", "grey"], materials=["superfine cotton"], price_usd=115.00),
+        ClothingItem(id=next_id(), name="Loopback Cotton Hoodie", brand="Sunspel", category="hoodie",
+            description="Heavyweight loopback cotton hoodie. Premium British-made fleece.",
+            fit="regular", style_tags=["british", "quality", "heavyweight"],
+            colors=["grey melange", "navy"], materials=["loopback cotton"], price_usd=235.00),
+    ])
+
+    # === ALDEN ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Indy Boot", brand="Alden", category="shoes",
+            description="Classic workboot made famous by Indiana Jones. Trubalance last for comfort.",
+            fit="regular", style_tags=["heritage", "americana", "workwear"],
+            colors=["brown", "black"], materials=["chromexcel leather"], price_usd=629.00),
+        ClothingItem(id=next_id(), name="Shell Cordovan Longwing", brand="Alden", category="shoes",
+            description="Wingtip brogue in shell cordovan. American shoemaking excellence.",
+            fit="regular", style_tags=["heritage", "americana", "dress"],
+            colors=["#8 burgundy", "black"], materials=["shell cordovan"], price_usd=805.00),
+        ClothingItem(id=next_id(), name="Plain Toe Blucher", brand="Alden", category="shoes",
+            description="Simple plain toe oxford. Versatile dress shoe for any occasion.",
+            fit="regular", style_tags=["heritage", "americana", "dress"],
+            colors=["black", "brown"], materials=["calfskin"], price_usd=577.00),
+    ])
+
+    # === MONITALY ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Vancluse Coat", brand="Monitaly", category="jacket",
+            description="Kimono-inspired coat with rope belt. Japanese workwear meets Americana.",
+            fit="oversized", style_tags=["japanese", "americana", "unique"],
+            colors=["brown", "navy"], materials=["cotton canvas"], price_usd=695.00),
+        ClothingItem(id=next_id(), name="Fatigue Pant", brand="Monitaly", category="pants",
+            description="Military-inspired pants with unique construction details. Made in Los Angeles.",
+            fit="relaxed", style_tags=["workwear", "military", "unique"],
+            colors=["olive", "navy", "khaki"], materials=["cotton twill"], price_usd=325.00),
+        ClothingItem(id=next_id(), name="Double Cloth Vest", brand="Monitaly", category="jacket",
+            description="Reversible vest with double-faced fabric. Versatile layering piece.",
+            fit="regular", style_tags=["unique", "layering", "crafted"],
+            colors=["grey/navy", "brown/tan"], materials=["double cloth wool"], price_usd=445.00),
+    ])
+
+    # === SNOW PEAK ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Takibi Coveralls", brand="Snow Peak", category="pants",
+            description="Fire-resistant coveralls for campfire wear. Japanese outdoor technical wear.",
+            fit="relaxed", style_tags=["outdoor", "japanese", "technical"],
+            colors=["olive", "black"], materials=["fire-resistant cotton"], price_usd=425.00),
+        ClothingItem(id=next_id(), name="Flexible Insulated Jacket", brand="Snow Peak", category="jacket",
+            description="Lightweight insulated jacket for camping. Technical outdoor performance.",
+            fit="regular", style_tags=["outdoor", "japanese", "technical"],
+            colors=["black", "olive"], materials=["nylon", "synthetic insulation"], price_usd=495.00),
+        ClothingItem(id=next_id(), name="Quick Dry Tee", brand="Snow Peak", category="t-shirt",
+            description="Moisture-wicking tee for outdoor activities. Japanese outdoor engineering.",
+            fit="regular", style_tags=["outdoor", "technical", "functional"],
+            colors=["grey", "white", "black"], materials=["technical polyester"], price_usd=75.00),
+    ])
+
+    # === WOOD WOOD ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Double A Tee", brand="Wood Wood", category="t-shirt",
+            description="Heavyweight cotton tee with minimalist branding. Danish streetwear basics.",
+            fit="regular", style_tags=["scandinavian", "streetwear", "minimalist"],
+            colors=["white", "black", "grey"], materials=["heavyweight cotton"], price_usd=85.00),
+        ClothingItem(id=next_id(), name="Leif Chino", brand="Wood Wood", category="pants",
+            description="Straight leg chinos with Danish minimalist design. Clean everyday pants.",
+            fit="straight", style_tags=["scandinavian", "minimalist", "casual"],
+            colors=["black", "navy", "khaki"], materials=["cotton twill"], price_usd=185.00),
+        ClothingItem(id=next_id(), name="Colin Coach Jacket", brand="Wood Wood", category="jacket",
+            description="Classic coach jacket with Scandinavian touch. Lightweight outerwear.",
+            fit="relaxed", style_tags=["scandinavian", "streetwear", "casual"],
+            colors=["black", "navy"], materials=["nylon"], price_usd=245.00),
+    ])
+
+    # === LEFT FIELD NYC ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Atlas Fit Jeans", brand="Left Field NYC", category="pants",
+            description="Athletic tapered fit raw denim. Room in thighs with strong taper.",
+            fit="athletic tapered", style_tags=["raw denim", "americana", "athletic"],
+            colors=["indigo"], materials=["cone mills selvedge"], price_usd=275.00),
+        ClothingItem(id=next_id(), name="Tube Tee", brand="Left Field NYC", category="t-shirt",
+            description="Tubular knit t-shirt without side seams. Vintage construction method.",
+            fit="regular", style_tags=["americana", "vintage", "made in usa"],
+            colors=["white", "navy", "grey"], materials=["tubular knit cotton"], price_usd=65.00),
+        ClothingItem(id=next_id(), name="Greaser Jeans", brand="Left Field NYC", category="pants",
+            description="High rise straight leg jeans. 1950s-inspired denim.",
+            fit="high rise straight", style_tags=["raw denim", "americana", "vintage"],
+            colors=["indigo"], materials=["selvedge denim"], price_usd=265.00),
+    ])
+
+    # === FREENOTE CLOTH ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Rios Slim Straight", brand="Freenote Cloth", category="pants",
+            description="Raw selvedge denim with classic American construction. Made in USA.",
+            fit="slim straight", style_tags=["raw denim", "americana", "heritage"],
+            colors=["indigo"], materials=["japanese selvedge"], price_usd=295.00),
+        ClothingItem(id=next_id(), name="Utility Shirt", brand="Freenote Cloth", category="shirt",
+            description="Western-style work shirt in chambray. American craftsmanship.",
+            fit="regular", style_tags=["americana", "western", "workwear"],
+            colors=["chambray", "black"], materials=["cotton chambray"], price_usd=225.00),
+        ClothingItem(id=next_id(), name="Riders Jacket", brand="Freenote Cloth", category="jacket",
+            description="Type II denim jacket in raw selvedge. Heritage American styling.",
+            fit="regular", style_tags=["raw denim", "americana", "heritage"],
+            colors=["indigo"], materials=["selvedge denim"], price_usd=365.00),
+    ])
+
+    # === MUJI ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Organic Cotton Crew Neck Tee", brand="Muji", category="t-shirt",
+            description="Simple organic cotton tee. Japanese minimalism at budget price.",
+            fit="regular", style_tags=["minimalist", "japanese", "affordable"],
+            colors=["white", "black", "grey", "navy"], materials=["organic cotton"], price_usd=19.90),
+        ClothingItem(id=next_id(), name="Linen Blend Wide Pants", brand="Muji", category="pants",
+            description="Relaxed linen blend pants. Comfortable Japanese basics.",
+            fit="wide", style_tags=["minimalist", "japanese", "comfortable"],
+            colors=["beige", "navy", "grey"], materials=["linen cotton blend"], price_usd=49.90),
+        ClothingItem(id=next_id(), name="Water Repellent Jacket", brand="Muji", category="jacket",
+            description="Lightweight water-resistant jacket. Functional Japanese design.",
+            fit="regular", style_tags=["minimalist", "japanese", "functional"],
+            colors=["black", "navy", "beige"], materials=["nylon"], price_usd=99.90),
+        ClothingItem(id=next_id(), name="Wool Blend Coat", brand="Muji", category="jacket",
+            description="Simple wool blend overcoat. Clean Japanese minimalist outerwear.",
+            fit="regular", style_tags=["minimalist", "japanese", "classic"],
+            colors=["navy", "grey", "camel"], materials=["wool blend"], price_usd=199.00),
+    ])
+
+    # === COMME DES GARCONS SHIRT ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Forever Classic Shirt", brand="Comme des Garcons Shirt", category="shirt",
+            description="Classic button-down with subtle CDG details. Japanese avant-garde basics.",
+            fit="regular", style_tags=["japanese", "avant-garde", "classic"],
+            colors=["white", "light blue", "pink"], materials=["cotton poplin"], price_usd=295.00),
+        ClothingItem(id=next_id(), name="Patchwork Shirt", brand="Comme des Garcons Shirt", category="shirt",
+            description="Multi-fabric patchwork shirt. Experimental Japanese design.",
+            fit="regular", style_tags=["japanese", "avant-garde", "unique"],
+            colors=["multi"], materials=["cotton blend"], price_usd=425.00),
+        ClothingItem(id=next_id(), name="Oversized Tee", brand="Comme des Garcons Shirt", category="t-shirt",
+            description="Basic tee with CDG branding. Japanese fashion basics.",
+            fit="oversized", style_tags=["japanese", "avant-garde", "relaxed"],
+            colors=["white", "black"], materials=["cotton"], price_usd=145.00),
+    ])
+
+    # === CORRIDOR ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Natural Dye Camp Shirt", brand="Corridor", category="shirt",
+            description="Camp collar shirt dyed with natural indigo. Sustainable New York brand.",
+            fit="relaxed", style_tags=["sustainable", "americana", "summer"],
+            colors=["indigo", "earth"], materials=["natural dyed cotton"], price_usd=195.00),
+        ClothingItem(id=next_id(), name="Floral Camp Shirt", brand="Corridor", category="shirt",
+            description="Camp shirt with hand-drawn floral print. Summer casual essential.",
+            fit="relaxed", style_tags=["casual", "summer", "artistic"],
+            colors=["floral multi"], materials=["cotton"], price_usd=185.00),
+        ClothingItem(id=next_id(), name="Hand Knit Sweater", brand="Corridor", category="sweater",
+            description="Hand-knitted alpaca blend sweater. Artisanal New York craftsmanship.",
+            fit="relaxed", style_tags=["artisanal", "sustainable", "cozy"],
+            colors=["cream", "brown"], materials=["alpaca wool blend"], price_usd=395.00),
+    ])
+
+    # === KESTIN ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Armadale Shirt Jacket", brand="Kestin", category="jacket",
+            description="Scottish-made overshirt with Harris Tweed. British craft meets contemporary design.",
+            fit="relaxed", style_tags=["british", "contemporary", "heritage"],
+            colors=["charcoal", "brown"], materials=["harris tweed"], price_usd=395.00),
+        ClothingItem(id=next_id(), name="Inverness Trouser", brand="Kestin", category="pants",
+            description="Wide leg pleated trousers. Scottish contemporary menswear.",
+            fit="wide pleated", style_tags=["british", "contemporary", "relaxed"],
+            colors=["navy", "charcoal", "olive"], materials=["wool blend"], price_usd=285.00),
+        ClothingItem(id=next_id(), name="Neist Overshirt", brand="Kestin", category="shirt",
+            description="Organic cotton overshirt with large pockets. Workwear-inspired design.",
+            fit="relaxed", style_tags=["british", "workwear", "contemporary"],
+            colors=["navy", "olive", "tan"], materials=["organic cotton"], price_usd=245.00),
+    ])
+
+    # === HOWLIN' ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Birth of the Cool Cardigan", brand="Howlin'", category="sweater",
+            description="Chunky wool cardigan made in Scotland. Vintage-inspired knitwear.",
+            fit="regular", style_tags=["scottish", "vintage", "cozy"],
+            colors=["navy", "burgundy", "grey"], materials=["scottish wool"], price_usd=345.00),
+        ClothingItem(id=next_id(), name="Shaggy Bear Sweater", brand="Howlin'", category="sweater",
+            description="Brushed wool sweater with fuzzy texture. Cozy Scottish knitwear.",
+            fit="regular", style_tags=["scottish", "cozy", "textured"],
+            colors=["cream", "moss", "navy"], materials=["brushed wool"], price_usd=295.00),
+        ClothingItem(id=next_id(), name="Flying Teapot Beanie", brand="Howlin'", category="accessories",
+            description="Ribbed wool beanie made in Scotland. Classic cold weather accessory.",
+            fit="one size", style_tags=["scottish", "classic", "winter"],
+            colors=["navy", "grey", "burgundy"], materials=["scottish wool"], price_usd=85.00),
+    ])
+
+    # === PORTUGUESE FLANNEL ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Teca Flannel Shirt", brand="Portuguese Flannel", category="shirt",
+            description="Heavyweight Portuguese flannel shirt. Excellent value for quality flannel.",
+            fit="relaxed", style_tags=["european", "casual", "quality"],
+            colors=["grey check", "blue check", "red check"], materials=["portuguese flannel"], price_usd=175.00),
+        ClothingItem(id=next_id(), name="Labura Overshirt", brand="Portuguese Flannel", category="shirt",
+            description="Cotton twill overshirt with utility pockets. Portuguese craftsmanship.",
+            fit="relaxed", style_tags=["european", "workwear", "layering"],
+            colors=["navy", "olive", "stone"], materials=["cotton twill"], price_usd=195.00),
+        ClothingItem(id=next_id(), name="Camp Collar Linen Shirt", brand="Portuguese Flannel", category="shirt",
+            description="Relaxed linen camp shirt. Perfect summer casual shirt.",
+            fit="relaxed", style_tags=["european", "summer", "casual"],
+            colors=["white", "light blue", "sage"], materials=["linen"], price_usd=145.00),
+    ])
+
+    # === GITMAN VINTAGE ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Oxford Button Down", brand="Gitman Vintage", category="shirt",
+            description="Made in USA oxford shirt. American classic with quality construction.",
+            fit="regular", style_tags=["americana", "classic", "quality"],
+            colors=["white", "blue", "pink"], materials=["oxford cloth"], price_usd=195.00),
+        ClothingItem(id=next_id(), name="Camp Collar Print Shirt", brand="Gitman Vintage", category="shirt",
+            description="Bold printed camp collar shirt. Fun patterns with quality construction.",
+            fit="relaxed", style_tags=["americana", "casual", "summer"],
+            colors=["floral", "tropical"], materials=["cotton"], price_usd=225.00),
+        ClothingItem(id=next_id(), name="Flannel Workshirt", brand="Gitman Vintage", category="shirt",
+            description="Heavy cotton flannel with chest pockets. American workwear styling.",
+            fit="regular", style_tags=["americana", "workwear", "classic"],
+            colors=["buffalo plaid", "windowpane"], materials=["cotton flannel"], price_usd=215.00),
+    ])
+
+    # === ARPENTEUR ===
+    items.extend([
+        ClothingItem(id=next_id(), name="Kabig Coat", brand="Arpenteur", category="jacket",
+            description="Hooded coat inspired by Breton fishing gear. French maritime heritage.",
+            fit="relaxed", style_tags=["french", "heritage", "maritime"],
+            colors=["navy", "grey"], materials=["brushed wool"], price_usd=695.00),
+        ClothingItem(id=next_id(), name="Orlo Jacket", brand="Arpenteur", category="jacket",
+            description="Chore jacket in Japanese fabric. French workwear with premium materials.",
+            fit="regular", style_tags=["french", "workwear", "japanese"],
+            colors=["indigo", "ecru"], materials=["japanese cotton"], price_usd=485.00),
+        ClothingItem(id=next_id(), name="Marin Sweater", brand="Arpenteur", category="sweater",
+            description="Breton stripe sweater in heavyweight cotton. Classic French nautical.",
+            fit="regular", style_tags=["french", "maritime", "classic"],
+            colors=["navy/white stripe"], materials=["heavyweight cotton"], price_usd=295.00),
+    ])
+
     return items
 
 
