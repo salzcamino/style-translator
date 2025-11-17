@@ -25,13 +25,16 @@ except ImportError:
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.models.clothing import ClothingItem, Brand, StyleDiscussion
-from src.embeddings.engine import StyleSearchEngine
+# StyleSearchEngine is imported lazily in get_engine() to avoid slow startup
 
 console = Console() if RICH_AVAILABLE else None
 
 
-def get_engine(data_dir: str = "./data/vectors", fast: bool = False) -> StyleSearchEngine:
-    """Initialize the search engine."""
+def get_engine(data_dir: str = "./data/vectors", fast: bool = False):
+    """Initialize the search engine with lazy import."""
+    # Lazy import to avoid loading heavy dependencies at CLI startup
+    from src.embeddings.engine import StyleSearchEngine
+
     if fast:
         return StyleSearchEngine(
             model_name=StyleSearchEngine.FAST_MODEL,
